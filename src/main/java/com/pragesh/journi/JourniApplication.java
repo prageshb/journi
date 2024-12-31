@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class JourniApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(JourniApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(JourniApplication.class, args);
+    }
 
 }

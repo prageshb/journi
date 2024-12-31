@@ -69,7 +69,6 @@ public class JourniEntryController {
                 entryToUpdate.setContent(recievedEntry.getContent());
 
             } else {
-
                 entryToUpdate.setContent(entryToUpdate.getContent());
             }
 

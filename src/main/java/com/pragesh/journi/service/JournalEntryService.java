@@ -13,15 +13,14 @@ import java.util.Optional;
 @Component
 public class JournalEntryService {
     @Autowired
-private JournalEntryRepository journalEntryRepository;
+    private JournalEntryRepository journalEntryRepository;
 
     public void saveEntry(JournalEntry journalEntry) {
         journalEntryRepository.save(journalEntry);
     }
 
 
-
-    public List<JournalEntry> getAllEntries(){
+    public List<JournalEntry> getAllEntries() {
         return journalEntryRepository.findAll();
     }
 
