@@ -4,14 +4,10 @@ import com.pragesh.journi.entity.JournalEntry;
 import com.pragesh.journi.service.JournalEntryService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @RestController()
@@ -32,7 +28,7 @@ public class JourniEntryController {
     //Taking in entries from user
     @PostMapping()
     public boolean enterEntry(@RequestBody JournalEntry entry) {
-        entry.setDate(LocalDateTime.now());
+        entry.setCreationDate(LocalDateTime.now());
         journalEntryService.saveEntry(entry);
         return true;
     }
@@ -57,16 +53,19 @@ public class JourniEntryController {
 
 
         if (entryToUpdate != null) {
-            if (recievedEntry.getTitle() != null && !recievedEntry.getTitle().equals(entryToUpdate.getTitle())) {
+
+            if (recievedEntry.getTitle() != null && !recievedEntry.getTitle().equals("") && !recievedEntry.getTitle().equals(entryToUpdate.getTitle())) {
                 entryToUpdate.setTitle(recievedEntry.getTitle());
+                entryToUpdate.setLastModified(LocalDateTime.now());
 
             } else {
 
                 entryToUpdate.setTitle(entryToUpdate.getTitle());
             }
 
-            if (recievedEntry.getContent() != null && !recievedEntry.getContent().equals(entryToUpdate.getContent())) {
+            if (recievedEntry.getContent() != null && !recievedEntry.getContent().equals("") && !recievedEntry.getContent().equals(entryToUpdate.getContent())) {
                 entryToUpdate.setContent(recievedEntry.getContent());
+                entryToUpdate.setLastModified(LocalDateTime.now());
 
             } else {
                 entryToUpdate.setContent(entryToUpdate.getContent());
