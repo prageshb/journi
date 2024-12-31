@@ -52,23 +52,32 @@ public class JourniEntryController {
     }
 
     @PutMapping("/id/{entryId}")
-    public boolean updateEntryById(@PathVariable ObjectId entryId, @RequestBody JournalEntry newEntry) {
+    public boolean updateEntryById(@PathVariable ObjectId entryId, @RequestBody JournalEntry recievedEntry) {
         JournalEntry entryToUpdate = (JournalEntry) journalEntryService.findById(entryId).orElse(null);
 
+
         if (entryToUpdate != null) {
+            if (recievedEntry.getTitle() != null && !recievedEntry.getTitle().equals(entryToUpdate.getTitle())) {
+                entryToUpdate.setTitle(recievedEntry.getTitle());
 
-            if (newEntry.getTitle() != "") {
-                entryToUpdate.setTitle(newEntry.getTitle());
+            } else {
 
+                entryToUpdate.setTitle(entryToUpdate.getTitle());
             }
 
-            if (entryToUpdate.getContent() != "") {
-                entryToUpdate.setContent(newEntry.getContent());
+            if (recievedEntry.getContent() != null && !recievedEntry.getContent().equals(entryToUpdate.getContent())) {
+                entryToUpdate.setContent(recievedEntry.getContent());
+
+            } else {
+
+                entryToUpdate.setContent(entryToUpdate.getContent());
             }
 
-            // entryToUpdate.setTitle(newEntry.getTitle() != null && !newEntry.getTitle().equals("") ? newEntry.getTitle() : entryToUpdate.getTitle());
-            //entryToUpdate.setContent(newEntry.getContent() != null && !newEntry.equals("") ? newEntry.getContent() : entryToUpdate.getContent());
-            journalEntryService.saveEntry(newEntry);
+            //error was because i was saving the new entry directly instead of updated entry
+            journalEntryService.saveEntry(entryToUpdate);
+        }
+        else {
+            return false;
         }
         return true;
     }
