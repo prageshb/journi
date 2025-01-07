@@ -13,11 +13,20 @@ public class JournalEntry {
     private ObjectId id;
     private String title;
     private String content;
+    private String imageUrl;
     private LocalDateTime creationDate;
     private LocalDateTime lastModified;
 
     public LocalDateTime getCreationDate() {
         return creationDate;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public LocalDateTime getLastModified() {
